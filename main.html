@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>여름 방학 🍉</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito Sans', sans-serif;
+            background-color: #F5F9FA;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #138496;
+            font-size: 48px;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            font-weight: normal;
+        }
+
+        h1 span {
+            display: inline-block;
+        }
+
+        h1 span:first-of-type {
+            color: #FF6B6B;
+            margin-right: 10px;
+        }
+
+        h1 span:last-of-type {
+            color: #6B96FF;
+        }
+
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form label {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: #138496;
+        }
+
+        form input[type="date"],
+        form input[type="text"],
+        form textarea {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #138496;
+            border-radius: 5px;
+            width: 300px;
+            margin-bottom: 10px;
+            outline: none;
+        }
+
+        form input[type="submit"] {
+            background-color: #138496;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        h2 {
+            text-align: center;
+            color: #138496;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        button {
+            background-color: #138496;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        #content {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 2px solid #138496;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .blue-theme {
+            background-color: #E6F5FF;
+            color: #138496;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #138496;
+        }
+
+        th {
+            background-color: #138496;
+            color: white;
+        }
+
+        td.date {
+            color: #138496;
+        }
+
+        td span {
+            display: inline-block;
+            background-color: #138496;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><span>3!</span>4!</h1>
+        <form id="scheduleForm">
+            <label for="date">일정 날짜:</label>
+            <input type="date" id="date" name="date" required><br>
+            <label for="title">일정 제목:</label>
+            <input type="text" id="title" name="title" required><br>
+            <label for="description">일정 설명:</label>
+            <textarea id="description" name="description"></textarea><br>
+            <input type="submit" value="일정 추가">
+        </form>
+
+        <h2>일정 목록</h2>
+        <ul id="scheduleList">
+        </ul>
+
+        <div class="button-container">
+            <button id="todoButton">Todolist</button>
+            <button id="universityButton">대학정보</button>
+            <button id="entranceExamButton">입시일정</button>
+        </div>
+
+        <div id="content">
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Todolist 버튼 클릭 이벤트 처리
+        document.getElementById('todoButton').addEventListener('click', function() {
+            window.location.href = 'Todolist.html';
+        });
+
+        // 대학정보 버튼 클릭 이벤트 처리
+        document.getElementById('universityButton').addEventListener('click', function() {
+            var content = document.getElementById('content');
+            content.innerHTML = '<h3>컴퓨터공학과</h3>' +
+                                '<p>컴퓨터공학과는 컴퓨터 기술과 소프트웨어 개발에 관한 교육을 제공하는 학과입니다. 주요 학습 내용으로는 프로그래밍, 알고리즘, 데이터베이스, 네트워크 등이 있습니다. 컴퓨터공학과에서는 학생들에게 실제 소프트웨어 개발 프로젝트를 경험할 수 있는 기회도 제공합니다. 또한, 컴퓨터공학과는 산업 현장의 요구에 맞춰 실무 중심의 교육을 진행하여 취업에 유리한 환경을 조성하고 있습니다.</p>'+
+                                '<ul>' +
+                                '<li>건국대학교 공과대학 컴퓨터공학부</li>' +
+                                '<li>고려대학교 정보대학 컴퓨터학과</li>' +
+                                '<li>광운대학교 소프트웨어융합대학 소프트웨어학부 / 컴퓨터정보공학부 / 정보융합학부</li>' +
+                                '<li>국민대학교 소프트웨어융합대학 소프트웨어학부</li>' +
+                                '<li>동덕여자대학교 정보과학대학 컴퓨터학과</li>' +
+                                '<li>덕성여자대학교 BIT공과대학 소프트웨어전공 / 컴퓨터공학전공</li>' +
+                                '<li>동국대학교 공과대학 컴퓨터정보통신공학부 컴퓨터공학전공 / 정보통신공학전공</li>' +
+                                '<li>명지대학교 ICT융합대학 융합소프트웨어학부 / 디지털콘텐츠디자인학과</li>' +
+                                '<li>삼육대학교 미래융합대학 컴퓨터공학부</li>' +
+                                '<li>상명대학교 미래융합공과대학 컴퓨터과학과</li>' +
+                                '<li>서강대학교 공과대학 컴퓨터공학과</li>' +
+                                '<li>서경대학교 이공대학 소프트웨어학과 / 컴퓨터공학과</li>' +
+                                '<li>서울대학교 공과대학 컴퓨터공학부</li>' +
+                                '<li>서울과학기술대학교 정보통신대학 컴퓨터공학과 / ITM전공</li>' +
+                                '<li>서울시립대학교 공과대학 컴퓨터과학부</li>' +
+                                '<li>서울여자대학교 미래산업융합대학 소프트웨어융합학과</li>' +
+                                '<li>성공회대학교 IT융합자율학부 컴퓨터공학전공</li>' +
+                                '<li>성신여자대학교 지식서비스공과대학 / 컴퓨터공학과</li>' +
+                                '<li>세종대학교 소프트웨어융합대학 소프트웨어학과 / 컴퓨터공학과</li>' +
+                                '<li>숙명여자대학교 공과대학 소프트웨어학부 / 컴퓨터과학전공 / IT공학전공</li>' +
+                                '<li>숭실대학교 IT대학 소프트웨어학부 / 컴퓨터학부</li>' +
+                                '<li>연세대학교 인공지능융합대학 컴퓨터과학과</li>' +
+                                '<li>육군사관학교 이학처 컴퓨터과학과</li>' +
+                                '<li>이화여자대학교 엘텍공과대학 소프트웨어학부 컴퓨터공학전공</li>' +
+                                '<li>중앙대학교 소프트웨어대학 소프트웨어학부</li>' +
+                                '<li>한국성서대학교 정보과학부 컴퓨터소프트웨어학전공</li>' +
+                                '<li>한국외국어대학교 융합전공 융복합소프트웨어전공</li>' +
+                                '<li>한성대학교 IT공과대학 컴퓨터공학부</li>' +
+                                '<li>한양대학교 소프트웨어대학 컴퓨터소프트웨어학부</li>' +
+                                '<li>홍익대학교 공과대학 컴퓨터공학과</li>' +
+                                '</ul>';
+        });
+
+        // 입시일정 버튼 클릭 이벤트 처리
+        document.getElementById('entranceExamButton').addEventListener('click', function() {
+            var content = document.getElementById('content');
+            content.innerHTML = '<h3>입시일정</h3>' +
+                                '<p>여름 방학 동안 입시일정을 확인하고, 준비해야 할 시험 일정과 과목을 계획하세요.</p>' +
+                                '<table>' +
+                                '    <tr>' +
+                                '        <th>구분</th>' +
+                                '        <th>전형유형</th>' +
+                                '        <th>원서접수</th>' +
+                                '        <th>전형기간</th>' +
+                                '        <th>합격자 발표</th>' +
+                                '        <th>합격자 등록</th>' +
+                                '        <th>미등록 충원 합격 통보 마감</th>' +
+                                '        <th>미등록 충원 등록 마감</th>' +
+                                '    </tr>' +
+                                '    <tr>' +
+                                '        <td>수시모집</td>' +
+                                '        <td>전형유형</td>' +
+                                '        <td>2023. 09. 11.(월) ~ 15.(금) 중 3일 이상</td>' +
+                                '        <td>2023. 09. 16.(토) ~ 12. 14.(목)(90일)</td>' +
+                                '        <td>2023. 12. 15.(금)까지</td>' +
+                                '        <td>2023. 12. 18.(월) ~ 21.(목)(4일)</td>' +
+                                '        <td>2023. 12. 28.(목) (합격자 발표 18시까지)</td>' +
+                                '        <td>2023. 12. 29.(금)</td>' +
+                                '    </tr>' +
+                                '    <tr>' +
+                                '        <td>정시모집</td>' +
+                                '        <td>전형유형</td>' +
+                                '        <td>2024. 01. 03.(수) ~ 06.(토) 중 3일 이상</td>' +
+                                '        <td>' +
+                                '            가군<br>' +
+                                '            2024. 01. 09.(화) ~ 16.(화)(8일)<br>' +
+                                '            나군<br>' +
+                                '            2024. 01. 17.(수) ~ 24.(수)(8일)<br>' +
+                                '            다군<br>' +
+                                '            2024. 01. 25.(목) ~ 02. 01.(목)(8일)' +
+                                '        </td>' +
+                                '        <td>2024. 02. 06.(화)까지</td>' +
+                                '        <td>2024. 02. 07.(수) ~ 13.(화)(7일)</td>' +
+                                '        <td>2024. 02. 20.(화) (합격자 발표 18시까지)</td>' +
+                                '        <td>2024. 02. 21.(수)</td>' +
+                                '    </tr>' +
+                                '</table>';
+                      });
+
+        // Preserve form values on page reload or back navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            var form = document.getElementById('scheduleForm');
+            var inputElements = form.getElementsByTagName('input');
+            for (var i = 0; i < inputElements.length; i++) {
+                inputElements[i].value = localStorage.getItem(inputElements[i].id);
+                inputElements[i].addEventListener('input', function() {
+                    localStorage.setItem(this.id, this.value);
+                });
+            }
+            var textarea = form.getElementsByTagName('textarea')[0];
+            textarea.value = localStorage.getItem(textarea.id);
+            textarea.addEventListener('input', function() {
+                localStorage.setItem(this.id, this.value);
+            });
+        });
+    </script>
+</body>
+</html>
