@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-Do List</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito Sans', sans-serif;
+            background-color: #F9F9F9;
+            background-image: url('https://postfiles.pstatic.net/MjAyMjA4MTFfMTM2/MDAxNjYwMjEyNzc1NTg3.NG1B7gQmPmxi8Pg03agsAAfgqQfV3SOL6BDU3MWn3dcg.WYw6rmEkrjzTI-AvYsGi3OcBSXb2hT96S3WQF9O5Zesg.JPEG.alsrud355w/IMG_3918.JPG?type=w966');
+            background-size: cover;
+            background-repeat: no-repeat;
+            padding: 20px;
+            margin: 0;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #6b75ff;
+            margin-top: 0;
+            font-size: 45px;
+        }
+        
+        .progress {
+            font-size: 16px;
+            color: #2c08e5;
+            margin-left: 10px;
+        }
+        
+        #todo-form {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        
+        #todo-input {
+            width: 200px;
+            margin-right: 10px;
+            padding: 5px;
+            border: none;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+        
+        #add-button {
+            background-color: #FF6B6B;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        #todo-list {
+            margin-left: 20px;
+        }
+        
+        .todo-item {
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+        }
+        
+        .delete-button {
+            margin-left: 5px;
+            color: #FF6B6B;
+            cursor: pointer;
+            font-size: 8px;
+        }
+        
+        .date-span {
+            font-size: 16px;
+            color: #2c08e5;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Summer vacation Todolist 🌞</h1>
+    <div id="todo-form">
+        <input type="text" id="todo-input" placeholder="할 일">
+        <button id="add-button">추가</button>
+    </div>
+    <div id="todo-list"></div>
+    <span class="date-span" id="date-span"></span>
+    <span class="progress" id="progress-span"></span>
+
+    <script>
+        // 오늘의 날짜를 가져오는 함수
+        function getTodayDate() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+        
+        // 할 일을 추가하는 함수
+        function addTodo() {
+            const todoInput = document.getElementById('todo-input');
+            const todoText = todoInput.value.trim();
+            if (todoText !== '') {
+                const todoItem = document.createElement('div');
+                todoItem.classList.add('todo-item');
+                todoItem.innerHTML = `
+                    <input type="checkbox" onchange="updateProgress()">
+                    <span style="font-size: 16px">${todoText}</span>
+                    <span class="delete-button" onclick="deleteTodoItem(this)">❌</span>
+                `;
+                document.getElementById('todo-list').appendChild(todoItem);
+                todoInput.value = '';
+                updateProgress();
+                saveState(); // 상태 저장
+            }
+        }
+        
+        // 할 일을 삭제하는 함수
+        function deleteTodoItem(element) {
+            const todoItem = element.parentNode;
+            document.getElementById('todo-list').removeChild(todoItem);
+            updateProgress();
+            saveState(); // 상태 저장
+        }
+        
+        // 달성률 업데이트
+        function updateProgress() {
+            const todoItems = document.getElementsByClassName('todo-item');
+            const completedCount = Array.from(todoItems).filter(item => item.querySelector('input[type="checkbox"]').checked).length;
+            const totalCount = todoItems.length;
+            const progressElement = document.getElementById('progress-span');
+            const progressPercentage = totalCount === 0 ? 0 : Math.round((completedCount / totalCount) * 100);
+            progressElement.textContent = `달성률: ${progressPercentage}%`;
+            saveState(); // 상태 저장
+        }
+        
+        // 초기화 함수
+        function initialize() {
+            const addButton = document.getElementById('add-button');
+            addButton.addEventListener('click', addTodo);
+            const todoInput = document.getElementById('todo-input');
+            todoInput.addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    addTodo();
+                }
+            });
+            const today = getTodayDate();
+            const dateSpan = document.createElement('span');
+            dateSpan.innerHTML = today;
+            dateSpan.classList.add('date-span');
+            document.getElementById('date-span').appendChild(dateSpan);
+            restoreState(); // 상태 복원
+        }
+        
+        // 상태를 저장하는 함수
+        function saveState() {
+            const todoList = document.getElementById('todo-list').innerHTML;
+            const progress = document.getElementById('progress-span').textContent;
+            localStorage.setItem('todoList', todoList);
+            localStorage.setItem('progress', progress);
+        }
+        
+        // 저장된 상태를 복원하는 함수
+        function restoreState() {
+            const savedTodoList = localStorage.getItem('todoList');
+            const savedProgress = localStorage.getItem('progress');
+            if (savedTodoList) {
+                document.getElementById('todo-list').innerHTML = savedTodoList;
+            }
+            if (savedProgress) {
+                document.getElementById('progress-span').textContent = savedProgress;
+            }
+        }
+        
+        initialize();
+    </script>
+</body>
+</html>
